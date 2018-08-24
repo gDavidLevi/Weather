@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--// Таблица кодов weatherData.getIcon() и кода фимвола из шрифта WeatherIcons-->
+    <!--// 01d 01n &#61453; &#61603; clear sky-->
+    <!--// 02d 02n &#61442; &#61489; few clouds-->
+    <!--// 03d 03n &#61505; &#61505; scattered clouds-->
+    <!--// 04d 04n &#61459; &#61459; broken clouds-->
+    <!--// 09d 09n &#61465; &#61465; shower rain-->
+    <!--// 10d 10n &#61448; &#61494; rain-->
+    <!--// 11d 11n &#61445; &#61491; thunderstorm-->
+    <!--// 13d 13n &#61541; &#61542; snow-->
+    <!--// 50d 50n &#61473; &#61473; mist-->
+
+    <string-array name="string_array_icons">
+        <item>01d &#61453;</item>
+        <item>02d &#61442;</item>
+        <item>03d &#61505;</item>
+        <item>04d &#61459;</item>
+        <item>09d &#61465;</item>
+        <item>10d &#61448;</item>
+        <item>11d &#61445;</item>
+        <item>13d &#61541;</item>
+        <item>50d &#61473;</item>
+        <item>01n &#61603;</item>
+        <item>02n &#61489;</item>
+        <item>03n &#61505;</item>
+        <item>04n &#61459;</item>
+        <item>09n &#61465;</item>
+        <item>10n &#61494;</item>
+        <item>11n &#61491;</item>
+        <item>13n &#61542;</item>
+        <item>50n &#61473;</item>
+    </string-array>
+</resources>

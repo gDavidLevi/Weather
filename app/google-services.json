@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "839975424458",
+    "firebase_url": "https://weather-9f29f.firebaseio.com",
+    "project_id": "weather-9f29f",
+    "storage_bucket": "weather-9f29f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839975424458:android:e506caa4950ec1f9",
+        "android_client_info": {
+          "package_name": "ru.davidlevi.weather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839975424458-m8lr8dtolr0k6ldsf207haji5se0s4fa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-clhmMzsvJHcZuVpp2R2j_qgaQk9XLBc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
