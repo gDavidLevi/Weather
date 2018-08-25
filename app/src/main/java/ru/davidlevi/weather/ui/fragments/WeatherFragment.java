@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import ru.davidlevi.weather.R;
 import ru.davidlevi.weather.sqlite.WeatherTable;
-import ru.davidlevi.weather.sqlite.model.WeatherData;
+import ru.davidlevi.weather.sqlite.model.CityInformation;
 
 /**
  * Класс-контроллер для макета fragment_weather.xml
@@ -51,11 +51,13 @@ public class WeatherFragment extends BaseFragment {
         TextView pressure = view.findViewById(R.id.d_pressure);
         TextView humidity = view.findViewById(R.id.d_humidity);
         TextView description = view.findViewById(R.id.d_description);
+        TextView windspeed = view.findViewById(R.id.d_windspeed);
+        TextView cloudiness = view.findViewById(R.id.d_cloudiness); // todo новое поле
 
         // Получим доступ к таблице БД с данными загруженными retrofit'ом
         WeatherTable weatherTable = new WeatherTable(context);
         weatherTable.open();
-        WeatherData data = weatherTable.getPosition(0);
+        CityInformation data = weatherTable.getPosition(0);
         weatherTable.close();
 
         // Установка значений
@@ -67,5 +69,7 @@ public class WeatherFragment extends BaseFragment {
         pressure.setText(data.getPressure());
         humidity.setText(data.getHumidity());
         description.setText(data.getDescription());
+        windspeed.setText(data.getWindspeed());
+        cloudiness.setText(data.getCloudiness());
     }
 }

@@ -12,8 +12,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -48,7 +46,7 @@ import ru.davidlevi.weather.service.Coordinates;
 import ru.davidlevi.weather.service.LocationService;
 import ru.davidlevi.weather.sqlite.HistoryTable;
 import ru.davidlevi.weather.sqlite.WeatherTable;
-import ru.davidlevi.weather.sqlite.model.WeatherData;
+import ru.davidlevi.weather.sqlite.model.CityInformation;
 import ru.davidlevi.weather.ui.fragments.AboutFragment;
 import ru.davidlevi.weather.ui.fragments.IBaseFragment;
 import ru.davidlevi.weather.ui.fragments.ListCitiesFragments;
@@ -77,11 +75,17 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private TextView headerEmail;
 
     // Настройки
-    private SharedPreferences sharedPreferences;
-    private String currentCity;
+    private SharedPreferences preferences;
 
+    /**
+     * Установим текущий город
+     *
+     * @param currentCity String
+     */
     public void setCurrentCity(String currentCity) {
-        this.currentCity = currentCity;
+        preferences.edit()
+                .putString(Constants.CURRENT_CITY, currentCity)
+                .apply();
     }
 
     /**
@@ -128,13 +132,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
      * Инициализация SharedPreferences
      */
     private void initSharedPreferences() {
-        sharedPreferences = getPreferences(Activity.MODE_PRIVATE);
+        preferences = getPreferences(Activity.MODE_PRIVATE);
 
         // Если в SharedPreferences есть данные, то используем их, иначе создаем xml-файл SharedPreferences
-        if (sharedPreferences.contains(Constants.CURRENT_CITY))
-            currentCity = sharedPreferences.getString(Constants.CURRENT_CITY, Constants.CURRENT_CITY_DEFAULT_VALUE);
-        else
-            sharedPreferences.edit()
+        if (!preferences.contains(Constants.CURRENT_CITY))
+            preferences.edit()
                     .putString(Constants.CURRENT_CITY, Constants.CURRENT_CITY_DEFAULT_VALUE)
                     .putString(Constants.CURRENT_USER, Constants.CURRENT_USER_DEFAULT_VALUE)
                     .putString(Constants.CURRENT_USER_EMAIL, Constants.CURRENT_USER_EMAIL_DEFAULT_VALUE)
@@ -253,8 +255,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        sharedPreferences.edit()
-                .putString(Constants.CURRENT_CITY, currentCity)
+        preferences.edit()
                 .putString(Constants.CURRENT_USER, headerUsername.getText().toString())
                 .putString(Constants.CURRENT_USER_EMAIL, headerEmail.getText().toString())
                 .apply();
@@ -327,8 +328,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
      * @see 'initViews(), setSettings()
      */
     private void setValuesToWidgets() {
-        headerUsername.setText(sharedPreferences.getString(Constants.CURRENT_USER, Constants.CURRENT_USER_DEFAULT_VALUE));
-        headerEmail.setText(sharedPreferences.getString(Constants.CURRENT_USER_EMAIL, Constants.CURRENT_USER_EMAIL_DEFAULT_VALUE));
+        headerUsername.setText(preferences.getString(Constants.CURRENT_USER, Constants.CURRENT_USER_DEFAULT_VALUE));
+        headerEmail.setText(preferences.getString(Constants.CURRENT_USER_EMAIL, Constants.CURRENT_USER_EMAIL_DEFAULT_VALUE));
     }
 
     /**
@@ -337,32 +338,32 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
      * @param response Response<WeatherRequest>
      */
     private void handlerResponseData(@NonNull Response<WeatherRequest> response) {
-        WeatherData weatherData = new WeatherData();
-        weatherData.setCity(response.body().getName());
-        weatherData.setTemperature(Float.toString(response.body().getMain().getTemp()));
-        weatherData.setPressure(Integer.toString(response.body().getMain().getPressure()));
-        weatherData.setHumidity(Integer.toString(response.body().getMain().getHumidity()));
-        weatherData.setDescription(response.body().getWeather()[0].getDescription());
-        weatherData.setIcon(response.body().getWeather()[0].getIcon());
+        CityInformation info = new CityInformation();
+        info.setCity(response.body().getName());
+        info.setTemperature(String.format("%2.0f°", response.body().getMain().getTemp())); // только целая часть + °
+        info.setIcon(response.body().getWeather()[0].getIcon());
+        info.setDescription(response.body().getWeather()[0].getDescription());
+        //
+        info.setPressure(String.format("Pressure %d hpa", response.body().getMain().getPressure()));
+        info.setHumidity(String.format("Humidity %d %%", response.body().getMain().getHumidity()));
+        info.setWindspeed(String.format("Windspeed %2.1f m/s", response.body().getWind().getSpeed()));
+        info.setCloudiness(String.format("Cloudiness %d %%", response.body().getClouds().getAll()));
 
         // Сохраним в погодную таблицу
         WeatherTable weatherTable = new WeatherTable(context);
         weatherTable.open();
-        weatherTable.save(weatherData);
+        weatherTable.save(info);
         weatherTable.close();
 
         // Теперь пишем в историю
         HistoryTable historyTable = new HistoryTable(context);
         historyTable.open();
-        historyTable.addOrUpdateIfExists(weatherData);
+        historyTable.addOrUpdateIfExists(info);
         historyTable.close();
 
-        // Установим текущий город как city
-        currentCity = weatherData.getCity();
-
         // Сохраним в SharedPreferences
-        sharedPreferences.edit()
-                .putString(Constants.CURRENT_CITY, weatherData.getCity())
+        preferences.edit()
+                .putString(Constants.CURRENT_CITY, info.getCity())
                 .apply();
 
         // Показать фрагмент
@@ -419,7 +420,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
      * Отображает WeatherFragment
      */
     public void showWeatherFragment() {
-        getDataAndShowWeatherFragment(currentCity);
+        getDataAndShowWeatherFragment(preferences.getString(Constants.CURRENT_CITY, Constants.CURRENT_CITY_DEFAULT_VALUE));
     }
 
     /**

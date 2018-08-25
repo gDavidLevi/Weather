@@ -24,6 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_HUMIDITY = "humidity";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_ICON = "icon";
+    public static final String COLUMN_WINDSPEED = "windspeed";
+    public static final String COLUMN_CLOUDINESS = "cloudiness";
 
 
     /**
@@ -49,7 +51,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_PRESSURE + " TEXT, "
                 + COLUMN_HUMIDITY + " TEXT, "
                 + COLUMN_DESCRIPTION + " TEXT, "
-                + COLUMN_ICON + " TEXT);");
+                + COLUMN_ICON + " TEXT, "
+                + COLUMN_WINDSPEED + " TEXT, "
+                + COLUMN_CLOUDINESS + " TEXT);");
 
         // history
         db.execSQL("CREATE TABLE " + TABLE_HISTORY + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -58,7 +62,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_PRESSURE + " TEXT, "
                 + COLUMN_HUMIDITY + " TEXT, "
                 + COLUMN_DESCRIPTION + " TEXT, "
-                + COLUMN_ICON + " TEXT);");
+                + COLUMN_ICON + " TEXT, "
+                + COLUMN_WINDSPEED + " TEXT, "
+                + COLUMN_CLOUDINESS + " TEXT);");
     }
 
     /**

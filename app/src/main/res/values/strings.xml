@@ -61,4 +61,5 @@
     <string name="here">Here</string>
     <string name="string_delimitter">|</string>
     <string name="aboutme">Geek UniversityAndroid\n2 семестр\nAndroid. Продвинутый уровень\nДавид А. Леви\nавгуст 2018</string>
+    <string name="citi">city</string>
 </resources>

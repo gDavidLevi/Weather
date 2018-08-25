@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.io.Closeable;
 
-import ru.davidlevi.weather.sqlite.model.WeatherData;
+import ru.davidlevi.weather.sqlite.model.CityInformation;
 
 /**
  * Класс описывает погодную таблицу
@@ -25,7 +25,9 @@ public class WeatherTable implements Closeable {
             DatabaseHelper.COLUMN_PRESSURE,
             DatabaseHelper.COLUMN_HUMIDITY,
             DatabaseHelper.COLUMN_DESCRIPTION,
-            DatabaseHelper.COLUMN_ICON
+            DatabaseHelper.COLUMN_ICON,
+            DatabaseHelper.COLUMN_WINDSPEED,
+            DatabaseHelper.COLUMN_CLOUDINESS
     };
 
     /**
@@ -72,27 +74,29 @@ public class WeatherTable implements Closeable {
     /**
      * Преобразователь данных курсора в объект
      *
-     * @return WeatherData
+     * @return CityInformation
      */
-    private WeatherData cursorToTemp() {
-        WeatherData weatherData = new WeatherData();
-        weatherData.setId(cursor.getLong(0));
-        weatherData.setCity(cursor.getString(1));
-        weatherData.setTemperature(cursor.getString(2));
-        weatherData.setPressure(cursor.getString(3));
-        weatherData.setHumidity(cursor.getString(4));
-        weatherData.setDescription(cursor.getString(5));
-        weatherData.setIcon(cursor.getString(6));
-        return weatherData;
+    private CityInformation cursorToTemp() {
+        CityInformation cityInformation = new CityInformation();
+        cityInformation.setId(cursor.getLong(0));
+        cityInformation.setCity(cursor.getString(1));
+        cityInformation.setTemperature(cursor.getString(2));
+        cityInformation.setPressure(cursor.getString(3));
+        cityInformation.setHumidity(cursor.getString(4));
+        cityInformation.setDescription(cursor.getString(5));
+        cityInformation.setIcon(cursor.getString(6));
+        cityInformation.setWindspeed(cursor.getString(7));
+        cityInformation.setCloudiness(cursor.getString(8));
+        return cityInformation;
     }
 
     /**
      * Прочитать данные по определенной позиции
      *
      * @param position int
-     * @return WeatherData
+     * @return CityInformation
      */
-    public WeatherData getPosition(int position) {
+    public CityInformation getPosition(int position) {
         cursor.moveToPosition(position);
         return cursorToTemp();
     }
@@ -117,16 +121,18 @@ public class WeatherTable implements Closeable {
     /**
      * Сохраняет запись в таблице
      */
-    public long save(WeatherData weatherData) {
+    public long save(CityInformation cityInformation) {
         deleteAll();
         //
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseHelper.COLUMN_CITY, weatherData.getCity());
-        contentValues.put(DatabaseHelper.COLUMN_TEMPERATURE, weatherData.getTemperature());
-        contentValues.put(DatabaseHelper.COLUMN_PRESSURE, weatherData.getPressure());
-        contentValues.put(DatabaseHelper.COLUMN_HUMIDITY, weatherData.getHumidity());
-        contentValues.put(DatabaseHelper.COLUMN_DESCRIPTION, weatherData.getDescription());
-        contentValues.put(DatabaseHelper.COLUMN_ICON, weatherData.getIcon());
+        contentValues.put(DatabaseHelper.COLUMN_CITY, cityInformation.getCity());
+        contentValues.put(DatabaseHelper.COLUMN_TEMPERATURE, cityInformation.getTemperature());
+        contentValues.put(DatabaseHelper.COLUMN_PRESSURE, cityInformation.getPressure());
+        contentValues.put(DatabaseHelper.COLUMN_HUMIDITY, cityInformation.getHumidity());
+        contentValues.put(DatabaseHelper.COLUMN_DESCRIPTION, cityInformation.getDescription());
+        contentValues.put(DatabaseHelper.COLUMN_ICON, cityInformation.getIcon());
+        contentValues.put(DatabaseHelper.COLUMN_WINDSPEED, cityInformation.getWindspeed());
+        contentValues.put(DatabaseHelper.COLUMN_CLOUDINESS, cityInformation.getCloudiness());
         // Добавление записи
         return database.insert(DatabaseHelper.TABLE_TEMP, null, contentValues);
     }
@@ -134,10 +140,10 @@ public class WeatherTable implements Closeable {
     /**
      * Удалить запись (DELETE)
      *
-     * @param weatherData WeatherData
+     * @param cityInformation CityInformation
      */
-    private void deleteData(WeatherData weatherData) {
-        long id = weatherData.getId();
+    private void deleteData(CityInformation cityInformation) {
+        long id = cityInformation.getId();
         database.delete(DatabaseHelper.TABLE_TEMP, DatabaseHelper.COLUMN_ID + " = " + id, null);
     }
 

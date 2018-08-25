@@ -1,6 +1,9 @@
 package ru.davidlevi.weather.sqlite.model;
 
-public class WeatherData {
+/**
+ * Класс описывает информацию об одном городе
+ */
+public class CityInformation {
     private long id;
     private String city;
     private String temperature;
@@ -8,6 +11,24 @@ public class WeatherData {
     private String humidity;
     private String description;
     private String icon;
+    private String windspeed;
+    private String cloudiness; // todo new field
+
+    public String getCloudiness() {
+        return cloudiness;
+    }
+
+    public void setCloudiness(String cloudiness) {
+        this.cloudiness = cloudiness;
+    }
+
+    public String getWindspeed() {
+        return windspeed;
+    }
+
+    public void setWindspeed(String windspeed) {
+        this.windspeed = windspeed;
+    }
 
     public String getDescription() {
         return description;

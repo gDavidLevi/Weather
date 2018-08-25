@@ -43,7 +43,6 @@ public class ListCitiesFragments extends BaseFragment {
 
         final Activity activity = getBaseActivity();
         final Context context = activity.getApplicationContext();
-        //final Resources resources = getResources();
 
         // Создадим RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.fragment_listcities_recyclerview);
@@ -66,6 +65,7 @@ public class ListCitiesFragments extends BaseFragment {
         // Адаптер
         AdapterListCities adapter = new AdapterListCities(list);
         recyclerView.setAdapter(adapter);
+
         // Обработчик нажатия на элемент списка
         adapter.SetOnItemClickListener(new AdapterListCities.OnItemClickListener() {
             @Override
@@ -75,24 +75,4 @@ public class ListCitiesFragments extends BaseFragment {
             }
         });
     }
-
-    /**
-     * Метод возвращает массив идентификаторов картинок из ресурсов
-     *
-     * @return int[]
-     */
-//    private int[] getImageArray() {
-//        // Читаем ресурс R.array.pictures в типизированный массив
-//        TypedArray typedArray = getResources().obtainTypedArray(R.array.int_array_images_cities);
-//        // Считаем кол-во элементов
-//        int quantity = typedArray.length();
-//        // Создаем int-массив из количества элементов
-//        int[] drawable_pictures_id = new int[quantity];
-//        for (int i = 0; i < quantity; i++) {
-//            // запишем в result int-значения объектов: "@drawable/c0_seoul",...
-//            drawable_pictures_id[i] = typedArray.getResourceId(i, 0);
-//        }
-//        typedArray.recycle();
-//        return drawable_pictures_id; //
-//    }
 }

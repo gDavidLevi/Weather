@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--// Таблица кодов weatherData.getIcon() и кода фимвола из шрифта WeatherIcons-->
+    <!--// Таблица кодов cityInformation.getIcon() и кода фимвола из шрифта WeatherIcons-->
     <!--// 01d 01n &#61453; &#61603; clear sky-->
     <!--// 02d 02n &#61442; &#61489; few clouds-->
     <!--// 03d 03n &#61505; &#61505; scattered clouds-->

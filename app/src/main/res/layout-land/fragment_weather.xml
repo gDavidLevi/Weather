@@ -26,13 +26,12 @@
         android:id="@+id/d_weather_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
         android:fontFamily="@font/weathericons"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
         android:textSize="150sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/d_city"
         tools:text="&#61451;" />
 
@@ -40,9 +39,8 @@
         android:id="@+id/d_temperature"
         android:layout_width="wrap_content"
         android:layout_height="114dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:shadowColor="@color/colorPrimary"
         android:shadowDx="-2"
         android:shadowDy="-2"
@@ -50,28 +48,27 @@
         android:textColor="@android:color/black"
         android:textSize="90sp"
         android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/d_weather_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/d_weather_icon"
+        app:layout_constraintStart_toEndOf="@+id/d_weather_icon"
+        app:layout_constraintTop_toBottomOf="@+id/d_city"
         tools:text="18" />
 
     <TextView
         android:id="@+id/d_pressure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/d_weather_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/d_city"
         tools:text="pressure" />
 
     <TextView
         android:id="@+id/d_humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/d_windspeed"
         tools:text="humidity" />
 
@@ -81,11 +78,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/d_weather_icon"
-        app:layout_constraintStart_toStartOf="@+id/d_weather_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/d_weather_icon"
         app:layout_constraintTop_toBottomOf="@+id/d_temperature"
         tools:text="description" />
 
@@ -93,9 +90,9 @@
         android:id="@+id/d_windspeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/d_pressure"
         tools:text="windspeed" />
 
@@ -103,9 +100,9 @@
         android:id="@+id/d_cloudiness"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/d_humidity"
         tools:text="cloudiness" />
 
