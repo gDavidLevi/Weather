@@ -23,15 +23,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:shadowColor="@color/colorPrimaryDark"
-                android:shadowDx="3"
-                android:shadowDy="3"
-                android:shadowRadius="9"
                 android:text="@string/item"
-                android:textAlignment="textEnd"
-                android:textColor="@color/colorAccent"
-                android:textSize="42sp"
-                android:textStyle="bold" />
+                android:textAlignment="textStart"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
